@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class GreetUser extends React.Component{
-  constructor(props, context) {
-     super(props, context);
+  constructor(props) {
+     super(props);
      this.state = { 
         name: props.name,
      };
