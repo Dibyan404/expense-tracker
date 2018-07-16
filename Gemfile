@@ -27,6 +27,10 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'webpacker'
 gem 'react-rails'
+# Use jquery as the JavaScript library
+# gem 'jquery-rails'
+# gem 'devise'
+# gem 'rspec-rails'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
