@@ -1,60 +1,142 @@
 import React from 'react';
+import Income from './Income/Income';
+import Expense from './Expense/Expense';
 import PropTypes from 'prop-types';
 
 class Tracker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      income: 0,
-      expense: 0,
-      remaining: 0
-    };
+      amount: 0,
+    }
   }
   componentDidMount() { }
-
-
 
   render() {
     return (
       <div className="tracker">
 
-        <section className="income-tracker">
-          <div className="container">
-
-            <div className="income-input-form">
-              <form>
-                <div className="row">
-                  <div className="col-sm-7">
-                    <input type="text" className="form-control" placeholder="Income Source" />
-                  </div>
-                  <div className="col-sm-3">
-                    <input type="text" className="form-control" placeholder="Amount" />
-                  </div>
-                  <div className="col-sm-2">
-                    <button type="submit" className="btn btn-primary mb-2">Submit</button>
-                  </div>
-
-
-                </div> 
-                {/* End of first row */}
-                <div className="row">
-                  <div className="col-md-12 text-center">
-                      <button className="btn btn-info">Add</button>
-                  </div>
-                </div>
-                
-              </form>
-
-            </div>
-            {/* End of div income-input-form */}
+        <section className="indicator">
+          <div className="text-center mb-5 bg-success">
+            <h4> I/E Tracker </h4>
           </div>
-          {/* End of container */}
+          <div className="card mx-auto  mb-4" style={{ width: '400px', height: '300px' }}>
+            <div className="text-center" style={{ paddingTop: '75px' }}>
+              <h3>Available Budget</h3>
+              <h1>Amount:<bold>$600</bold></h1>
+            </div>
+
+
+
+          </div>
+        </section>
+
+        <section className="input-transaction d-flex justify-content-center">
+          <div className="row">
+            <div className="col-md-6">
+              <Income />
+            </div>
+            <div className="col-md-6">
+              <Expense />
+            </div>
+          </div>
         </section>
 
 
+        <section class="report">
+          <div className="report-head">
+            <div className="report-title text-center">
+              <h4 className="my-4">Transaction Reports </h4>
+            </div>
+            <div className="row d-flex justify-content-center">
+              <div className="col-md-6">
+                <div className="report-table">
+                  <div className="report-table-title">
+                    <h5>Income Report</h5>
+                  </div>
+                  <div className="report-table-body">
+                    <table className="table table-dark">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">First</th>
+                          <th scope="col">Last</th>
+                          <th scope="col">Handle</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                          <td>@fat</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td>Larry</td>
+                          <td>the Bird</td>
+                          <td>@twitter</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                {/* report-table */}
+
+              </div>
+
+              <div className="col-md-6">
+                <div className="report-table">
+                  <div className="report-table-title">
+                    <h5>Expense Report</h5>
+                  </div>
+                  <div className="report-table-body">
+                    <table className="table table-dark">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">First</th>
+                          <th scope="col">Last</th>
+                          <th scope="col">Handle</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">1</th>
+                          <td>Mark</td>
+                          <td>Otto</td>
+                          <td>@mdo</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">2</th>
+                          <td>Jacob</td>
+                          <td>Thornton</td>
+                          <td>@fat</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">3</th>
+                          <td>Larry</td>
+                          <td>the Bird</td>
+                          <td>@twitter</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        {/* section table */}
       </div>
       // End of main div Tracker
-    )
+    );
   }
 }
 Tracker.PropTypes = {
