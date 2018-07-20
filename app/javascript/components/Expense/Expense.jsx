@@ -6,7 +6,27 @@ class Expense extends React.Component{
     constructor(props){
         super(props);
         this.state={
+            newExpense: {
+                
+            }
+        }
+    }
 
+    handleSubmit(e){
+        e.preventDefault();
+        if(this.refs.title.value === ""){
+            alert("title is required");
+            
+        }else{
+            this.setState({
+                newExpense:{
+                    id: this.refs.amount.value +1,
+                    expenseContent: this.refs.title.value,
+                    expenseAmount: this.refs.amount.value
+                }
+            },function(){
+                this.props.addExpense(this.state.newExpense);
+            })
         }
     }
    
@@ -23,14 +43,14 @@ class Expense extends React.Component{
                                    Expenses
                                 </h6> */}
 
-                                <form action="">
+                                <form onSubmit = {this.handleSubmit.bind(this)}>
                                     <div className="form-group">
-                                        <input type="text" className="form-control" id="input-description" aria-describedby="descHelp" placeholder="Enter the expenses"/>
+                                        <input type="text" ref="title" className="form-control" id="input-description" aria-describedby="descHelp" placeholder="Enter the expenses"/>
                                     </div>
                                     <div className="form-group">
-                                        <input type="text" className="form-control" id="amount" placeholder = "Enter the amount" />
+                                        <input type="text" ref="amount" className="form-control" id="amount" placeholder = "Enter the amount" />
                                     </div>
-                                    <button className="btn btn-success" type="submit">Add</button>
+                                    <button type = "submit" value ="submit" className="btn btn-success" type="submit">Add</button>
                                 </form>
                                 
 
