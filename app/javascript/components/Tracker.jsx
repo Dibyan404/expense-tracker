@@ -148,10 +148,10 @@ class Tracker extends React.Component {
       <div className="tracker">
         <div className="container">
           <section className="indicator">
-            <div className="text-center mb-5 bg-success">
+            {/* <div className="text-center mb-5 bg-success">
               <h4> I/E Tracker </h4>
-            </div>
-            <div className="card mx-auto  mb-4" style={{ width: '400px', height: '300px' }}>
+            </div> */}
+            <div className="card mx-auto mt-4 mb-4" style={{ width: '400px', height: '300px' }}>
               <div className="text-center" style={{ paddingTop: '75px' }}>
                 <h3>Available Budget</h3>
                 <h1>

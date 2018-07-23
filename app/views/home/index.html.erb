@@ -1,5 +1,11 @@
+
+<% if user_signed_in? %>
 <section id="section">
     <div class="react-app">
         <%= react_component 'Tracker' %>
     </div>
 </section>
+
+<% else %>
+    <%= render 'partials/box'  %>   
+<% end %>

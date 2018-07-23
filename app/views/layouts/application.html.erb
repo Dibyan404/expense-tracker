@@ -3,7 +3,7 @@
 <head>
   <title>Workspace</title>
   <%= csrf_meta_tags %>
-  <%= csp_meta_tag %>
+  <%# <%= csp_meta_tag %> 
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => 'reload' %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => 'reload' %>
   <!-- Following will make the react components availabe to our layout -->
@@ -11,16 +11,62 @@
   <%= javascript_pack_tag 'application' %>
 </head>
 <body>
+  <div class="container">
 
-    <nav>
-      <% if user_signed_in? %>
-          <%= link_to 'Sign In', new_user_session_path %>
-      <% else %>
-          <%= link_to 'Sign Up', new_user_registration_path %>
-          <%= link_to 'Log Out',destroy_user_session_path %>
-      <% end %>
-    </nav>
-    <%= yield %>
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+              <a class="navbar-brand" href="#">aTtrack</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              
+                  <div class="collapse navbar-collapse d-flex justify-content-between" id="navbarNav">
+                          
+                                    <ul class="navbar-nav">
+                                      <li class="nav-item active">
+                                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a class="nav-link" href="#">Features</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a class="nav-link" href="#">Pricing</a>
+                                      </li>
+                                      <li class="nav-item">
+                                        <a class="nav-link" href="#">About</a>
+                                      </li>
+                                    </ul>
+
+                                    <ul class="navbar-nav">
+                                        <% if !user_signed_in? %>
+                                              <li class="nav-item mr-3">
+                                                  <b class="mr-1">Have Account?</b><%= link_to 'Sign In', new_user_session_path, class:'btn btn-sm btn-primary', method: :get %>
+                                              </li>
+                                              <li class="nav-item">
+                                                  <b class="mr-1">No?</b><%= link_to 'Sign Up', new_user_registration_path,class:'btn btn-sm btn-success',method: :get %>  
+                                              </li>
+                                          <% else %>
+                                              <li class="nav-item">
+                                                    <b>Bored?</b><%= link_to 'logout', destroy_user_session_path, method: :delete,class:'btn btn-sm btn-secondary' %>
+                                              </li>
+                                          <% end %>
+                                    </ul>
+                          
+
+                  </div>
+              
+            </nav>
+          <div class="row">
+              <div class="col-sm-12">   
+                    <div><%= yield %></div> 
+              </div>
+              
+          </div>
+
+
+  </div>
+ 
+   
+    
 
 </body>
 </html>
