@@ -2,115 +2,89 @@ import React from 'react';
 import Income from './Income/Income';
 import Expense from './Expense/Expense';
 import Report from './Report/Report';
+// import { Object } from 'core-js';
 // import PropTypes from 'prop-types';
 
 class Tracker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      incomes : [],
-      expenses: []
+      incomes: [],
+      expenses: [],
+      incomeTotal:0,
+      expenseTotal:0
     }
-    // this.addIncome = this.addIncome.bind(this);
-  }
-  componentWillMount() { 
-    this.setState({incomes:[
-      {
-        id:'1',
-        incomeContent:'asdf',
-        incomeAmount: '555',
-        
-      },
-      {
-        id:'2',
-        incomeContent:'asdf',
-        incomeAmount: '555',
-       
-      },
-      {
-        id:'3',
-        incomeContent:'asdf',
-        incomeAmount: '555',
-      }
-      
 
-
-    ],
-    expenses:[
-      {
-        
-          id:'3',
-          expenseContent:'asdf',
-          expenseAmount: '555',
-        
-      },
-      {
-        id:'4',
-        expenseContent: 'sdjfas',
-        expenseAmount:'4664'
-      }
-    ]
-  })
+    this.handleAddIncome = this.handleAddIncome.bind(this);
+    this.handleAddExpense = this.handleAddExpense.bind(this);
   }
 
-  // addIncome(inc){
-  //   // e.preventdefault();
-  //   const previousIncomes = this.state.incomes;
-  //   previousIncomes.push({
-  //     id: previousIncomes.length+1, 
-  //     incomeContent: inc,
-  //     incomeAmount: inc
-  //   });
-    
-    
-  //   this.setState({
-  //     incomes: previousIncomes
-  //   });
-  // }
-  handleAddIncome(income){
-    // console.log(income);
+  // addIncome(){
+  //   // const incomeTotal = 0;
+  //   // for(let i = 0; i < this.state.incomes.length; i++ ){
+  //   //   incomeTotal = incomeTotal + this.state.incomes[i].incomeAmount; 
+  //   // }
+  //   // const expenseTotal = 0;
+  //   // for(let j = 0; j < this.state.expenses.length; j++){
+  //   //     expenseTotal = expenseTotal + this.state.expenses[j].expenseAmount;
+  //   // }
+  //   // let total = incomeTotal - expenseTotal;
+  //   // return total;
 
+  //   // this.incomes = this.props.incomes;
+  //   // this.expenses = this.props.expenses;
+
+  //   // let incomeTotal = this.incomes.reduce(function (prev, cur) {
+  //   //   return +prev + cur.incomeAmount;
+  //   // }, 0);
+  //   // let expenseTotal = this.expenses.reduce(function (prev, cur) {
+  //   //   return +prev + cur.expenseAmount;
+  //   // }, 0);
+  //   // const total = incomeTotal - expenseTotal;
+  //   // return total;
+  // };
+
+  handleAddIncome(incomes) {
     let newIncomes = this.state.incomes;
-    newIncomes.push(income);
-    this.setState({
-      incomes: newIncomes
-    });
+    newIncomes.push(incomes);
+    this.setState((prevState)=>{
+      return{
+        incomes: newIncomes,
+        incomeTotal: +incomes.incomeAmount + this.state.incomeTotal
+      }
     
-
+    });
 
   }
-  handleAddExpense(expense){
+  handleAddExpense(expenses) {
     let newExpenses = this.state.expenses;
-    newExpenses.push(expense);
-    this.setState({
-      expense: newExpenses
-    }) 
+    newExpenses.push(expenses);
+    this.setState((prevState) => {
+      return {
+        expenses: newExpenses,
+        expenseTotal: +expenses.expenseAmount + this.state.expenseTotal
+      }
+    })
   }
-  
-  
 
   render() {
-        // let incomeDetails;
-        let previousIncomes;
-        if(this.state.incomes){
-          previousIncomes = this.state.incomes.map(incomes => {
-            return(
-              <Report key={incomes.id} incomes = {incomes} />
-              
-            );
-          });
-        }
-        let previousExpenses;
-        if(this.state.expenses){
-            previousExpenses = this.state.expenses.map(expenses => {
-                return(
-                  <Report key={expenses.id} expenses={expenses} />
-                )
-            })
-        }
-      //  const iexp = function IncRExp(){
-      //       !this.state.expenses ? {previousIncomes} : {previousExpenses}
-      //   }
+    let previousIncomes;
+    if (this.state.incomes) {
+      previousIncomes = this.state.incomes.map(incomes => {
+        return (
+          <Report key={incomes.id} incomes={incomes} />
+
+        );
+      });
+    }
+    let previousExpenses;
+    if (this.state.expenses) {
+      previousExpenses = this.state.expenses.map(expenses => {
+        return (
+          <Report key={expenses.id} expenses={expenses} />
+        )
+      })
+    }
 
     return (
       <div className="tracker">
@@ -122,7 +96,10 @@ class Tracker extends React.Component {
             <div className="card mx-auto  mb-4" style={{ width: '400px', height: '300px' }}>
               <div className="text-center" style={{ paddingTop: '75px' }}>
                 <h3>Available Budget</h3>
-                <h1>Amount:$600</h1>
+                <h1>
+                  {/* {this.addIncome()} */}
+                  {this.state.incomeTotal - this.state.expenseTotal}
+                </h1>
               </div>
 
 
@@ -133,11 +110,10 @@ class Tracker extends React.Component {
           <section className="input-transaction d-flex justify-content-center">
             <div className="row">
               <div className="col-md-6">
-                {/* <Income addIncome = {this.addIncome} /> */}
-                <Income addIncome = {this.handleAddIncome.bind(this)} />
+                <Income addIncome={this.handleAddIncome} />
               </div>
               <div className="col-md-6">
-                <Expense addExpense = {this.handleAddExpense.bind(this)} />
+                <Expense addExpense={this.handleAddExpense} />
               </div>
             </div>
           </section>
@@ -152,50 +128,35 @@ class Tracker extends React.Component {
                 <div className="col-md-12">
                   {/* <Report  /> */}
                   <div className="report-table-title">
-                      <h5>Income Report</h5>
-                    </div>
-                    <div className="report-table-body table-responsive">
-                      <table className="table table-hover table-sm">
-                        <thead className="thead-dark">
-                          <tr>
-                            <th scope="col">+/-</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Amount</th>
-                            <th scope="col">Edit/Delete</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {/* {this.state.incomes.map((i) => {
-                              return(
-                                <Report incomeContent = {i.incomeContent} id={i.id} key={i.id} incomeAmount={i.incomeAmount} />
-                              )
-                            })
-                          } */}
+                    <h5>Income Report</h5>
+                  </div>
+                  <div className="report-table-body table-responsive">
+                    <table className="table table-hover table-sm">
+                      <thead className="thead-dark">
+                        <tr>
+                          <th scope="col">+/-</th>
+                          <th scope="col">Title</th>
+                          <th scope="col">Amount</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {previousIncomes}
+                        {previousExpenses}
+                        <tr className="bg-secondary">
+                          <th scope="row">#</th>
+                          <td><h4>Total</h4></td>
+                          <td><h4>{this.state.incomeTotal - this.state.expenseTotal}</h4></td>
+                          <td>-</td>
+                        </tr>
 
-                          
-                            
-                              
-                          
-                              {previousIncomes}
-                              {previousExpenses} 
-                          
-                            
-                            {/* {previousIncomes} */}
-                          <tr className="bg-secondary">
-                            <th scope="row">#</th>
-                            <td><h4>Total</h4></td>
-                            <td><h4>39000</h4></td>
-                            <td>-</td>
-                          </tr>
-
-                        </tbody>
-                      </table>
-                    </div>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
-              {/* row */}
-           
+            </div>
+            {/* row */}
+
           </section>
           {/* section table */}
         </div>
