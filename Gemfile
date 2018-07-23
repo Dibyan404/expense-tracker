@@ -29,7 +29,7 @@ gem 'webpacker'
 gem 'react-rails'
 # Use jquery as the JavaScript library
 # gem 'jquery-rails'
-# gem 'devise'
+gem 'devise'
 # gem 'rspec-rails'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
