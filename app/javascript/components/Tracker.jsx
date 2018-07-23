@@ -11,12 +11,14 @@ class Tracker extends React.Component {
     this.state = {
       incomes: [],
       expenses: [],
-      incomeTotal:0,
-      expenseTotal:0
+      incomeTotal: 0,
+      expenseTotal: 0
     }
 
     this.handleAddIncome = this.handleAddIncome.bind(this);
     this.handleAddExpense = this.handleAddExpense.bind(this);
+    this.removeIncome = this.removeIncome.bind(this)
+    this.removeExpense = this.removeExpense.bind(this)
   }
 
   // addIncome(){
@@ -47,12 +49,12 @@ class Tracker extends React.Component {
   handleAddIncome(incomes) {
     let newIncomes = this.state.incomes;
     newIncomes.push(incomes);
-    this.setState((prevState)=>{
-      return{
+    this.setState((prevState) => {
+      return {
         incomes: newIncomes,
         incomeTotal: +incomes.incomeAmount + this.state.incomeTotal
       }
-    
+
     });
 
   }
@@ -67,12 +69,68 @@ class Tracker extends React.Component {
     })
   }
 
+  removeIncome(id, amount) {
+    let arrayObj = this.state.incomes;
+
+    let index = arrayObj.indexOf(x => x.id === id);
+    arrayObj.splice(index, 1);
+    const amt = amount;
+    // const amt = this.state.incomes.incomeAmount
+   
+    
+      this.setState((prevState, props) => {
+        return {
+          incomes: arrayObj,
+          incomeTotal: prevState.incomeTotal - amt
+        }
+
+      });
+      // this.setState({
+      //   incomeTotal: amt
+      // })
+    if(arrayObj === undefined || arrayObj.length === 0){
+      this.setState({
+        incomeTotal: 0,
+        
+      })
+    }
+  }
+
+
+  removeExpense(id, amount) {
+    let arrayObj = this.state.expenses;
+
+    let index = arrayObj.indexOf(x => x.id === id);
+    arrayObj.splice(index, 1);
+    const amt = amount;
+    // const amt = this.state.arrayObj[index].expenseAmount
+   
+    
+      this.setState((prevState, props) => {
+        return {
+          expenses: arrayObj,
+          expenseTotal: prevState.expenseTotal - amt
+        }
+
+      });
+      // this.setState({
+      //   incomeTotal: amt
+      // })
+    if(arrayObj === undefined || arrayObj.length == 0){
+      this.setState({
+        expenseTotal: 0,
+        
+      })
+    }
+
+
+  }
   render() {
     let previousIncomes;
     if (this.state.incomes) {
       previousIncomes = this.state.incomes.map(incomes => {
         return (
-          <Report key={incomes.id} incomes={incomes} />
+          <Report key={incomes.id} incomes={incomes} removeIncome={this.removeIncome} />
 
         );
       });
@@ -81,7 +139,7 @@ class Tracker extends React.Component {
     if (this.state.expenses) {
       previousExpenses = this.state.expenses.map(expenses => {
         return (
-          <Report key={expenses.id} expenses={expenses} />
+          <Report key={expenses.id} expenses={expenses} removeExpense={this.removeExpense} />
         )
       })
     }
@@ -137,6 +195,7 @@ class Tracker extends React.Component {
                           <th scope="col">+/-</th>
                           <th scope="col">Title</th>
                           <th scope="col">Amount</th>
+                          <th scope="col"></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -146,7 +205,7 @@ class Tracker extends React.Component {
                           <th scope="row">#</th>
                           <td><h4>Total</h4></td>
                           <td><h4>{this.state.incomeTotal - this.state.expenseTotal}</h4></td>
-                          <td>-</td>
+                          <th scope="col"></th>
                         </tr>
 
                       </tbody>

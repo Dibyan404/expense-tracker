@@ -1,4 +1,5 @@
 import React from 'react';
+import uuid from 'uuid';
 // import PropTypes from 'proptypes';
 
 class Income extends React.Component {
@@ -11,7 +12,7 @@ class Income extends React.Component {
                 alert("title is required");
         }else{
             this.setState({newIncome:{
-                id: this.refs.title.value.length + 1,
+                id: uuid.v4(),
                 incomeContent: this.refs.title.value,
                 incomeAmount: this.refs.amount.value,
                 

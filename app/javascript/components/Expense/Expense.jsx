@@ -1,4 +1,5 @@
 import React from 'react';
+import uuid from 'uuid';
 // import PropTypes from 'proptypes';
 // import 'Expense.css';
 
@@ -15,7 +16,7 @@ class Expense extends React.Component{
         }else{
             this.setState({
                 newExpense:{
-                    id: this.refs.amount.value.length +1,
+                    id: uuid.v4(),
                     expenseContent: this.refs.title.value,
                     expenseAmount: this.refs.amount.value
                 }
